@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"encoding/json"
 	"encoding/xml"
 	"fmt"
 	"io/ioutil"
@@ -46,23 +45,7 @@ type Property struct {
 	Value   string   `xml:"value"`
 }
 
-func loadEnvs(envPath string) map[string]map[string]string {
-	f, err := os.Open(envPath)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	defer f.Close()
-
-	data, _ := ioutil.ReadAll(f)
-	var envs map[string]map[string]string
-	err = json.Unmarshal(data, &envs)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	return envs
-}
-
-func configure(confPath, module string, envs map[string]map[string]string) {
+func configure(confPath, module string) {
 	fmt.Printf("configuring %s\n", module)
 
 	f, err := os.Open(confPath)
@@ -78,12 +61,19 @@ func configure(confPath, module string, envs map[string]map[string]string) {
 		log.Fatalln(err)
 	}
 
-	for name, value := range envs[strings.ToUpper(module)] {
-		property := Property{
-			Name:  name,
-			Value: value,
+	prefix := strings.ToUpper(module) + "_CONF_"
+	for _, environ := range os.Environ() {
+		if strings.HasPrefix(environ, prefix) {
+			kv := strings.Split(environ[len(prefix):], "=")
+			name := kv[0]
+			value := kv[1]
+			fmt.Printf("setting %s=%s\n", name, value)
+			proper := Property{
+				Name:  name,
+				Value: value,
+			}
+			conf.Properties = append(conf.Properties, proper)
 		}
-		conf.Properties = append(conf.Properties, property)
 	}
 
 	data, err = xml.MarshalIndent(&conf, "", "    ")
@@ -103,10 +93,8 @@ func configure(confPath, module string, envs map[string]map[string]string) {
 }
 
 func main() {
-	envs := loadEnvs("hadoop.env.json")
-
-	configure("/etc/hadoop/core-site.xml", "core", envs)
-	configure("/etc/hadoop/hdfs-site.xml", "hdfs", envs)
-	configure("/etc/hadoop/yarn-site.xml", "yarn", envs)
-	configure("/etc/hadoop/mapred-site.xml", "mapred", envs)
+	configure("/etc/hadoop/core-site.xml", "core")
+	configure("/etc/hadoop/hdfs-site.xml", "hdfs")
+	configure("/etc/hadoop/yarn-site.xml", "yarn")
+	configure("/etc/hadoop/mapred-site.xml", "mapred")
 }
