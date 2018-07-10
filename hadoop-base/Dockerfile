@@ -24,8 +24,6 @@ ENV USER=root
 ENV PATH $HADOOP_PREFIX/bin/:$PATH
 
 ADD entry_point.sh /entry_point.sh
-ADD hadoop_conf /hadoop_conf
-
-RUN chmod a+x /entry_point.sh /hadoop_conf
+RUN chmod a+x /entry_point.sh
 
 ENTRYPOINT ["/entry_point.sh"]
