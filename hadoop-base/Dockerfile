@@ -17,11 +17,11 @@ RUN set -x \
 RUN ln -s /opt/hadoop-${HADOOP_VERSION}/etc/hadoop /etc/hadoop
 RUN mkdir /opt/hadoop-${HADOOP_VERSION}/logs
 
-ENV HADOOP_PREFIX=/opt/hadoop-${HADOOP_VERSION}
+ENV HADOOP_HOME=/opt/hadoop-${HADOOP_VERSION}
 ENV HADOOP_CONF_DIR=/etc/hadoop
 
 ENV USER=root
-ENV PATH $HADOOP_PREFIX/bin/:$PATH
+ENV PATH $HADOOP_HOME/bin/:$PATH
 
 ADD entry_point.sh /entry_point.sh
 RUN chmod a+x /entry_point.sh

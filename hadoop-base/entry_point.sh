@@ -1,14 +1,14 @@
 #!/bin/bash
 
+export CORE_CONF_fs_defaultFS=hdfs://hadoop_name:8020
+
 function addProperty {
     local path=$1
     local name=$2
     local value=$3
-    echo $path, $name, $value
     local property="<property><name>$name</name><value>${value}</value></property>"
     local escaped=$(echo $property | sed 's/\//\\\//g')
-    echo $escaped
-    sed "/<\/configuration>/ s/.*/${escaped}\n&/" $path 
+    sed -i "/<\/configuration>/ s/.*/${escaped}\n&/" $path 
 }
 
 function configEnv {
@@ -19,7 +19,7 @@ function configEnv {
     local name
     local value
 
-    echo "configuring $module $envPrefix"
+    echo "configuring $module"
     for c in `printenv | grep $envPrefix`; do
         keyValue=${c:${#envPrefix}}
         name=`echo $keyValue | cut -d'=' -f 1 | sed 's/___/-/g; s/__/_/g; s/_/./g'`
