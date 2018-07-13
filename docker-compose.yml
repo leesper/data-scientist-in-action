@@ -2,7 +2,7 @@ version: "3"
 services:
   namenode:
     image: leesper/hadoop-namenode:3.0.3
-    hostname: hadoop.name
+    container_name: hadoop.name
     volumes:
       - namenode-vol:/data/hadoop/name
     env_file:
@@ -11,7 +11,7 @@ services:
     image: leesper/hadoop-historyserver:3.0.3
     depends_on:
       - namenode
-    hostname: hadoop.historyserver
+    container_name: hadoop.historyserver
     volumes:
       - historyserver-vol:/hadoop/yarn/timeline
     env_file:
@@ -20,14 +20,14 @@ services:
     image: leesper/hadoop-mrhistoryserver:3.0.3
     depends_on:
       - namenode
-    hostname: hadoop.mrjobhistoryserver
+    container_name: hadoop.mrhistoryserver
     env_file:
       - ./hadoop.env
   datanode-1:
     image: leesper/hadoop-datanode:3.0.3
     depends_on:
       - namenode
-    hostname: hadoop.datanode-1
+    container_name: hadoop.datanode-1
     volumes:
       - datanode-1-vol:/data/hadoop/data
     env_file:
@@ -36,7 +36,7 @@ services:
     image: leesper/hadoop-datanode:3.0.3
     depends_on:
       - namenode
-    hostname: hadoop.datanode-2
+    container_name: hadoop.datanode-2
     volumes:
       - datanode-2-vol:/data/hadoop/data
     env_file:
@@ -45,12 +45,12 @@ services:
     image: leesper/hadoop-resourcemanager:3.0.3
     depends_on:
       - namenode
-    hostname: hadoop.resourcemanager
+    container_name: hadoop.resourcemanager
     env_file:
       - ./hadoop.env
   nodemanager:
     image: leesper/hadoop-nodemanager:3.0.3
-    hostname: hadoop.nodemanager
+    container_name: hadoop.nodemanager
     depends_on:
       - namenode
       - resourcemanager

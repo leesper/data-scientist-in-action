@@ -23,7 +23,7 @@ function configEnv {
     for c in `printenv | grep $envPrefix`; do
         keyValue=${c:${#envPrefix}}
         name=`echo $keyValue | cut -d'=' -f 1 | sed 's/___/-/g; s/__/_/g; s/_/./g'`
-        value=`echo $keyValue | cut -d'=' -f 2
+        value=`echo $keyValue | cut -d'=' -f 2`
         echo "setting $name=$value"
         addProperty $path $name $value
     done
