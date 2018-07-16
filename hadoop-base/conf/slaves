@@ -1,2 +1,2 @@
-slave1
-slave2
+worker.datanode1
+worker.datanode2
