@@ -6,7 +6,7 @@ RUN apt-get update \
 
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
-ENV HADOOP_VERSION 2.7.3
+ENV HADOOP_VERSION 2.7.6
 ENV HADOOP_URL http://mirror.bit.edu.cn/apache/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz
 
 RUN set -x \
