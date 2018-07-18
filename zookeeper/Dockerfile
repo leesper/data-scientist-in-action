@@ -7,7 +7,7 @@ RUN set -x \
     && curl -fSL "${ZOOKEEPER_URL}" -o /tmp/zookeeper.tar.gz \
     && tar -xvf /tmp/zookeeper.tar.gz -C /usr/local \
     && mv /usr/local/zookeeper-${ZOOKEEPER_VERSION} /usr/local/zookeeper \
-    && rm /tmp/zookeeper.tar.gz* \
+    && rm -rf /tmp/zookeeper.tar.gz* \
     && mkdir -p /opt/data \
     && mkdir -p /opt/log
 

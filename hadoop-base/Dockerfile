@@ -7,7 +7,7 @@ RUN set -x \
     && curl -fSL "$HADOOP_URL" -o /tmp/hadoop.tar.gz \
     && tar -xvf /tmp/hadoop.tar.gz -C /usr/local \
     && mv /usr/local/hadoop-${HADOOP_VERSION} /usr/local/hadoop \
-    && rm /tmp/hadoop.tar.gz*
+    && rm -rf /tmp/hadoop.tar.gz*
 
 ENV HADOOP_PREFIX=/usr/local/hadoop
 ENV HADOOP_HOME=${HADOOP_PREFIX}
