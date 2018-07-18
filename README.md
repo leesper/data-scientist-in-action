@@ -5,7 +5,7 @@ comprehensive projects for data engineering and analysis
 ## 系统环境
 
 * 操作系统：Ubuntu 18.04
-* Java：java 8
+* Java 8
 * Zookeeper：3.4.10
 * Hadoop：2.7.6
 * mysql：5.6
