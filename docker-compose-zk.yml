@@ -1,0 +1,39 @@
+zk1:
+   image: leesper/zookeeper
+  #  restart: always
+   container_name: zk1
+   net: zoo-net
+   volumes:
+      - ./zookeeper/zk1:/opt/data
+      - ./zookeeper/conf:/usr/local/zookeeper/conf
+   ports:
+      - "2181:2181"
+   expose:
+      - "2888"
+      - "3888"
+zk2:
+   image: leesper/zookeeper
+  #  restart: always
+   container_name: zk2
+   net: zoo-net
+   volumes:
+      - ./zookeeper/zk2:/opt/data 
+      - ./zookeeper/conf:/usr/local/zookeeper/conf
+   ports:
+      - "2182:2181"
+   expose:
+      - "2888"
+      - "3888"
+zk3:
+   image: leesper/zookeeper
+  #  restart: always
+   container_name: zk3
+   net: zoo-net
+   volumes:
+      - ./zookeeper/zk3:/opt/data
+      - ./zookeeper/conf:/usr/local/zookeeper/conf
+   ports:
+      - "2183:2181"
+   expose:
+      - "2888"
+      - "3888"
