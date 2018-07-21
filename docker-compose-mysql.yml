@@ -1,0 +1,11 @@
+mysql:
+   image: leesper/mysql
+   container_name: mysql
+   volumes:
+     - ./mysql/data:/var/lib/mysql
+   net: zoo-net
+   command: mysqld
+   environment:
+      MYSQL_ROOT_PASSWORD: root
+   ports: 
+     - "3306:3306"
