@@ -78,19 +78,20 @@ $ docker-compose -f docker-compose-hadoop.yml up -d
 启动集群，格式化namenode
 
 ```
-$ docker exec -it hadoop-master bash
-$ cd /usr/local/hadoop/bin
-$ hdfs namenode -format
+docker exec -it master.namenode /bin/bash
+hdfs namenode -format
 ```
 
-然后启动hdfs和yarn
+然后启动HDFS，YARN和MapReduce JobHistory Server
 
 ```
-$ cd /usr/local/hadoop/sbin
-$ ./start-all.sh
+cd /usr/local/hadoop/sbin
+./start-dfs.sh
+./start-yarn.sh
+./mr-jobhistory-daemon.sh --config $HADOOP_CONF_DIR start historyserver
 ```
 
- 访问http://localhost:50070，看集群是否启动成功
+访问http://localhost:50070，看集群是否启动成功
 
 ### 6. 启动Hadoop+Hive集群 **TODO**
 

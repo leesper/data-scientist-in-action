@@ -1,3 +1,4 @@
+version: "3"
 mysql:
    image: leesper/mysql
    container_name: mysql
