@@ -67,7 +67,7 @@ mysql> ALTER DATABASE hive character set latin1;
 
 MySQL容器配置完成
 
-### 5. 启动基础Hadoop集群 **TODO**
+### 5. 启动基础Hadoop集群
 
 **TODO** 增加对组件的描述
 
@@ -105,7 +105,7 @@ cd /usr/local/hadoop/sbin
 $ docker-compose -f docker-compose-hive.yml up -d
 ```
 
- 启动hadoo集群的操作和上面启动hadoop集群一样
+启动hadoo集群的操作和上面启动hadoop集群一样
 
 ### 7. 启动Hadoop+Hive+Spark集群 **TODO**
 

@@ -376,7 +376,7 @@
   </property>
   <property>
     <name>javax.jdo.option.ConnectionURL</name>
-    <value>jdbc:mysql://hadoop-mysql/hive?createDatabaseIfNotExist=true&amp;useSSL=false</value>
+    <value>jdbc:mysql://mysql/hive?createDatabaseIfNotExist=true&amp;useSSL=false</value>
     <description>JDBC connect string for a JDBC metastore</description>
   </property>
   <property>
@@ -387,7 +387,7 @@
 
   <property>
     <name>javax.jdo.option.ConnectionPassword</name>
-    <value>1234qwer</value>
+    <value>root</value>
     <description>password to use against metastore database</description>
   </property>
 
