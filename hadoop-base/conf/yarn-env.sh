@@ -118,5 +118,5 @@ if [ "x$JAVA_LIBRARY_PATH" != "x" ]; then
 fi  
 YARN_OPTS="$YARN_OPTS -Dyarn.policy.file=$YARN_POLICYFILE"
 
-export JAVA_HOME=/app/jdk1.8.0_171
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export HADOOP_LOG_DIR=/data/hadoop/logs

@@ -97,5 +97,5 @@ export HADOOP_SECURE_DN_PID_DIR=${HADOOP_PID_DIR}
 # A string representing this instance of hadoop. $USER by default.
 export HADOOP_IDENT_STRING=$USER
 
-export JAVA_HOME=/app/jdk1.8.0_171
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export HADOOP_LOG_DIR=/data/hadoop/logs
