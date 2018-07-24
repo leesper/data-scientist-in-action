@@ -160,18 +160,33 @@ spark-submit --master yarn --class org.apache.spark.examples.SparkPi /usr/local/
 Pi is roughly 3.1417248314172483
 ```
 
-### 8. 启动Hadoop+Hive+Spark+Hbase集群 **TODO**
+### 8. 启动Hadoop+Hive+Spark+Hbase集群
 
 ```
-$ docker-compose -f docker-compose-hbase.yml up -d
+docker-compose -f docker-compose-hbase.yml up -d
 ```
 
 需要先启动Hadoop基础集群和Spark集群，操作同上
 
-启动HBase集群
+在NameNode上启动HBase集群
 
 ```
 /usr/local/hbase/bin/start-hbase.sh
 ```
+
+### 9. 启动Hadoop+Hive+Spark+Hbase+Sqoop集群
+
+```
+docker-compose -f docker-compose-sqoop.yml up -d
+```
+
+需要先启动Hadoop基础集群，Spark集群和HBase集群，操作同上
+
+在任意一个节点上（比如DataNode），测试Sqoop与MySQL之间的连接是否成功：
+
+```
+sqoop list-databases --connect jdbc:mysql://mysql:3306/ --username root -Proot
+```
+
 
 注意docker-compose-hadoop.yml、docker-compose-hive.yml、docker-compose-spark.yml和docker-compose-hbase.yml不要一起启动，后面模板中是包含了前一个的所有配置
