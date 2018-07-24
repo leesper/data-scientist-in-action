@@ -105,7 +105,19 @@ cd /usr/local/hadoop/sbin
 $ docker-compose -f docker-compose-hive.yml up -d
 ```
 
-启动hadoo集群的操作和上面启动hadoop集群一样
+需要先启动Hadoop基础集群，操作同上
+
+可以在任意一个节点上启动Hive Server，启动之后可以以编程的方式访问Hive中的数据
+
+```
+hive --service hiveserver2 # 这里是在NameNode节点上运行的，默认前台运行，若需要后台运行，请加&
+```
+
+以交互式方式访问Hive
+
+```
+hive
+```
 
 ### 7. 启动Hadoop+Hive+Spark集群 **TODO**
 
