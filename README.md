@@ -129,7 +129,7 @@ $ docker-compose -f docker-compose-spark.yml up -d
 
 需要先启动Hadoop基础集群，操作同上
 
-启动Spark集群
+NameNode上，启动Spark集群
 
 ```
 /usr/local/spark/sbin/start-all.sh
@@ -166,19 +166,12 @@ Pi is roughly 3.1417248314172483
 $ docker-compose -f docker-compose-hbase.yml up -d
 ```
 
-启动hadoop、spark集群同c
+需要先启动Hadoop基础集群和Spark集群，操作同上
 
-启动hbase集群
+启动HBase集群
 
 ```
-$ sh /usr/local/hbase/bin/start-hbase.sh
+/usr/local/hbase/bin/start-hbase.sh
 ```
 
 注意docker-compose-hadoop.yml、docker-compose-hive.yml、docker-compose-spark.yml和docker-compose-hbase.yml不要一起启动，后面模板中是包含了前一个的所有配置
-
-### Hadoop集群配置成功后可以查看的Web页面
-1. namenode: http://namenodeip:9870/dfshealth.html
-2. historyserver: http://historyserverip:8188/applicationhistory
-3. datanode: http://datanode-ip:9864
-4. nodemanager: http://nodemanager-ip:8042/node
-5. resourcemanager: http://resourcemanager-ip:8088/

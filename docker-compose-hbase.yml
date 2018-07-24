@@ -1,0 +1,46 @@
+version: "3"
+services: 
+  master.namenode:
+    image: leesper/hadoop-hbase
+    container_name: master.namenode
+    volumes:
+      - ./hadoop-base/conf:/usr/local/hadoop/etc/hadoop
+      - ./hadoop-hive/conf:/usr/local/hive/conf
+      - ./hadoop-spark/conf:/usr/local/spark/conf
+      - ./hadoop-hbase/conf:/usr/local/hbase/conf
+    network_mode: zoo-net
+    ports:
+      - "50070:50070"
+  master.resourcemanager:
+    image: leesper/hadoop-hbase
+    container_name: master.resourcemanager
+    volumes: 
+      - ./hadoop-base/conf:/usr/local/hadoop/etc/hadoop
+      - ./hadoop-hive/conf:/usr/local/hive/conf
+      - ./hadoop-spark/conf:/usr/local/spark/conf
+      - ./hadoop-hbase/conf:/usr/local/hbase/conf
+    network_mode: zoo-net
+    ports:
+      - "8088:8088"
+  worker.datanode1:
+    image: leesper/hadoop-hbase
+    container_name: worker.datanode1
+    depends_on:
+      - master.namenode
+    volumes:
+      - ./hadoop-base/conf:/usr/local/hadoop/etc/hadoop
+      - ./hadoop-hive/conf:/usr/local/hive/conf
+      - ./hadoop-spark/conf:/usr/local/spark/conf
+      - ./hadoop-hbase/conf:/usr/local/hbase/conf
+    network_mode: zoo-net
+  worker.datanode2:
+    image: leesper/hadoop-hbase
+    container_name: worker.datanode2
+    depends_on:
+      - master.namenode
+    volumes:
+      - ./hadoop-base/conf:/usr/local/hadoop/etc/hadoop
+      - ./hadoop-hive/conf:/usr/local/hive/conf
+      - ./hadoop-spark/conf:/usr/local/spark/conf
+      - ./hadoop-hbase/conf:/usr/local/hbase/conf
+    network_mode: zoo-net
