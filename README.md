@@ -97,7 +97,7 @@ cd /usr/local/hadoop/sbin
 
 访问http://localhost:50070，看集群是否启动成功，也可以通过jps命令查看进程。
 
-### 6. 启动Hadoop+Hive集群 **TODO**
+### 6. 启动Hadoop+Hive集群
 
 需要依赖mysql容器
 
@@ -127,18 +127,18 @@ hive
 $ docker-compose -f docker-compose-spark.yml up -d
 ```
 
- 启动hadoop集群同a。
+需要先启动Hadoop基础集群，操作同上
 
-启动spark集群
+启动Spark集群
 
 ```
-$ sh /usr/local/spark/sbin/start-all.sh
+/usr/local/spark/sbin/start-all.sh
 ```
 
 使用 spark 自带样例中的计算 Pi 的应用来验证一下
 
 ```
-/usr/local/spark/bin/spark-submit --master spark://hadoop-master:7077 --class org.apache.spark.examples.SparkPi /usr/local/spark/lib/spark-examples-1.6.2-hadoop2.2.0.jar 1000
+spark-submit --master spark://master.namenode:7077 --class org.apache.spark.examples.SparkPi /usr/local/spark/lib/spark-examples-1.6.2-hadoop2.2.0.jar 1000
 ```
 
 计算结果输出如下
