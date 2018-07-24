@@ -1,6 +1,7 @@
-docker build -t leesper/ubuntu-java
-docker build -t leesper/zookeeper 
-docker build -t leesper/hadoop-base 
-docker build -t leesper/hadoop-hive 
-docker build -t leesper/hadoop-spark 
-docker build -t leesper/hadoop-hbase 
+docker pull leesper/ubuntu-java
+docker pull leesper/zookeeper 
+docker pull leesper/mysql 
+docker pull leesper/hadoop-base 
+docker pull leesper/hadoop-hive 
+docker pull leesper/hadoop-spark 
+docker pull leesper/hadoop-hbase 
