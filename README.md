@@ -119,7 +119,7 @@ hive --service hiveserver2 # 这里是在NameNode节点上运行的，默认前�
 hive
 ```
 
-### 7. 启动Hadoop+Hive+Spark集群 **TODO**
+### 7. 启动Hadoop+Hive+Spark集群
 
 需要依赖mysql容器
 
@@ -135,24 +135,29 @@ $ docker-compose -f docker-compose-spark.yml up -d
 /usr/local/spark/sbin/start-all.sh
 ```
 
-使用 spark 自带样例中的计算 Pi 的应用来验证一下
+Standalone模式下，使用Spark自带样例中的计算Pi的应用来验证一下
 
 ```
-spark-submit --master spark://master.namenode:7077 --class org.apache.spark.examples.SparkPi /usr/local/spark/lib/spark-examples-1.6.2-hadoop2.2.0.jar 1000
+spark-submit --master spark://master.namenode:7077 --class org.apache.spark.examples.SparkPi /usr/local/spark/examples/jars/spark-examples_2.11-2.3.1.jar 1000
 ```
 
 计算结果输出如下
 
 ```
-starting org.apache.spark.deploy.master.Master, logging to /usr/local/spark/logs/spark--org.apache.spark.deploy.master.Master-1-1bdfd98bccc7.out
-hadoop-slave2: starting org.apache.spark.deploy.worker.Worker, logging to /usr/local/spark/logs/spark-root-org.apache.spark.deploy.worker.Worker-1-9dd7e2ebbf13.out
-hadoop-slave3: starting org.apache.spark.deploy.worker.Worker, logging to /usr/local/spark/logs/spark-root-org.apache.spark.deploy.worker.Worker-1-97a87730dd03.out
-hadoop-slave1: starting org.apache.spark.deploy.worker.Worker, logging to /usr/local/spark/logs/spark-root-org.apache.spark.deploy.worker.Worker-1-adb07707f15b.out
-<k/bin/spark-submit --master spark://hadoop-master:7077 --class org.apache.spark.examples.SparkPi /usr/local/spark/li
-lib/      licenses/
-<.examples.SparkPi /usr/local/spark/lib/spark-examples-1.6.2-hadoop2.2.0.jar 1000
-16/11/07 08:19:46 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
-Pi is roughly 3.1417756
+18/07/24 03:57:16 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Pi is roughly 3.1413606314136064
+```
+
+YARN模式下，使用Spark自带样例中的计算Pi的应用来验证一下
+```
+spark-submit --master yarn --class org.apache.spark.examples.SparkPi /usr/local/spark/examples/jars/spark-examples_2.11-2.3.1.jar 1000
+```
+
+计算结果输出如下
+```
+18/07/24 04:00:36 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+18/07/24 04:00:41 WARN Client: Neither spark.yarn.jars nor spark.yarn.archive is set, falling back to uploading libraries under SPARK_HOME.
+Pi is roughly 3.1417248314172483
 ```
 
 ### 8. 启动Hadoop+Hive+Spark+Hbase集群 **TODO**
