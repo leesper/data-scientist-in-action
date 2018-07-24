@@ -3,6 +3,7 @@ FROM leesper/hadoop-base
 ENV HIVE_VERSION=1.2.2
 ENV HIVE_URL=https://mirrors.tuna.tsinghua.edu.cn/apache/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz
 ENV MYSQL_CONNECTOR_URL=https://cdn.mysql.com//Downloads/Connector-J/mysql-connector-java-5.1.46.tar.gz
+ENV HIVE_HOME=/usr/local/hive
 
 RUN set -x \
     && curl -fSL "$HIVE_URL" -o /tmp/hive.tar.gz \
@@ -16,5 +17,4 @@ RUN set -x \
     && mkdir -p /usr/hive/warehouse \
     && mkdir -p /usr/hive/log
 
-ENV HIVE_HOME=/usr/local/hive
 ENV PATH=$PATH:${HIVE_HOME}/bin:.
