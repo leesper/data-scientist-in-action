@@ -11,7 +11,7 @@ comprehensive projects for data engineering and analysis
 通过本项目，你可以学习到：
 
 1. 如何编写Dockerfile来构建各种常用Hadoop组件容器
-2. 如何基于Docker的编排技术来构建完全分布式的Hadoop容器集群
+2. 如何基于Docker的编排技术来构建完全分布式的大数据容器集群
 3. 通过自己搭建的Hadoop容器集群对[Kaggle泰坦尼克数据集](https://www.kaggle.com/c/titanic)进行数据分析
 
 ## Environments
@@ -45,23 +45,28 @@ comprehensive projects for data engineering and analysis
 * Docker 18.03.1-ce
 * Docker Compose 1.17.1
 
-## Tutorials
+## Tutorials 0：搭建完全分布式的大数据集群
 
 ### 1. 构建/拉取镜像
 
 所有的镜像都已构建完毕并上传到DockerHub，可以通过[这里](https://hub.docker.com/u/leesper/)拉取所需镜像，也可以通过`sh docker_pull.sh`一次性拉取所有构建好的镜像。
 
+若想自己构建镜像，请进入相应目录并运行对应的`docker build`命令，以ubuntu-java为例：
+
+```
+cd ubuntu-java/
+
+# 注意末尾小数点不可省略（代表当前目录）
+docker build -t=xxx/ubuntu-java .
+```
+
 ### 2. 创建大数据集群网络
 
-可通过`docker network create zoo-net`创建名称为zoo-net的容器网络，若指定了不同的名称，请注意修改对应的Docker编排文件。
+通过命令：`docker network create zoo-net`创建名称为zoo-net的容器网络，**注意**：若指定了不同的名称，需要修改对应的Docker编排文件。
 
-### 3. 启动ZooKeeper集群
+### 3. 搭建ZooKeeper集群
 
-```
-$ docker-compose -f docker-compose-zk.yml up -d
-```
-
-根据需要可在docker compose文件中增减集群数量，注意同时要增减myid配置
+请阅读文档：[实战项目0：利用Docker搭建ZooKeeper集群](./tutorials-0/zookeeper.md)
 
 ### 4. 启动MySQL容器
 
