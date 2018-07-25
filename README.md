@@ -1,32 +1,55 @@
 # data-scientist-in-action 行动中的数据科学家
+
+[![GitHub forks](https://img.shields.io/github/forks/leesper/data-scientist-in-action.svg)](https://github.com/leesper/data-scientist-in-action/network) [![GitHub stars](https://img.shields.io/github/stars/leesper/data-scientist-in-action.svg)](https://github.com/leesper/data-scientist-in-action/stargazers) [![GitHub license](https://img.shields.io/github/license/leesper/data-scientist-in-action.svg)](https://github.com/leesper/data-scientist-in-action/blob/master/LICENSE)
+
 comprehensive projects for data engineering and analysis
+
 大数据工程和分析综合案例
 
-## 系统环境
+## Features
 
-* 操作系统：Ubuntu 18.04
-* Java 8
-* Zookeeper：3.4.10
-* Hadoop：2.7.6
-* mysql：5.6
-* Hive：1.2.2
-* Spark：2.3.1
-* Hbase：2.0.1
+通过本项目，你可以学习到：
 
-## 镜像介绍
+1. 如何编写Dockerfile来构建各种常用Hadoop组件容器
+2. 如何基于Docker的编排技术来构建完全分布式的Hadoop容器集群
+3. 通过自己搭建的Hadoop容器集群对[Kaggle泰坦尼克数据集](https://www.kaggle.com/c/titanic)进行数据分析
 
-* leesper/ubuntu-java：openssh+Java 8 基础镜像 
-* leesper/zookeeper：基于leesper/ubuntu-java构建，用于启动ZooKeeper集群
-* leesper/hadoop-base：基于leesper/ubuntu-java构建，用于启动基础Hadoop集群
-* leesper/hadoop-hive：基于leesper/hadoop-base镜像构建，用于启动带Hive组件的Hadoop集群
-* leesper/hadoop-spark：基于leesper/hadoop-hive镜像构建，用于启动带Hive和Spark组件的Hadoop集群
-* leesper/hadoop-hbase：基于leesper/hadoop-spark镜像构建，用于启动带Hive，Spark和HBase的Hadoop集群
+## Environments
 
-## Quick Start
+* Ubuntu 18.04
+* OpenJDK Java 8
+* Zookeeper 3.4.10
+* Hadoop 2.7.6
+* mysql 5.6.40
+* Hive 1.2.2
+* Spark 2.3.1
+* Hbase 2.0.1
+* Sqoop 1.4.7
+
+## Images
+
+1. leesper/ubuntu-java：Java8 + OpenSSH，基础操作系统镜像
+2. leesper/zookeeper：基于leesper/ubuntu-java构建，用于启动ZooKeeper集群
+3. leesper/mysql：基于官方镜像构建，用于启动MySQL容器提供给集群使用
+4. leesper/hadoop-base：基于leesper/ubuntu-java构建，用于启动基础Hadoop集群
+6. leesper/hadoop-hive：基于leesper/hadoop-base构建，包含Hadoop和Hive，用于启动带Hive的Hadoop集群
+7. leesper/hadoop-spark：基于leesper/hadoop-hive构建，包含Hadoop，Hive和Spark，用于启动Hadoop+Spark集群
+8. leesper/hadoop-hbase：基于leesper/hadoop-spark构建，包含Hadoop，Hive，Spark和HBase，用于启动Hadoop+Spark+HBase集群
+9. leesper/hadoop-sqoop：基于leesper/hadoop-hbase构建，包含Hadoop，Hive，Spark，HBase和Sqoop，提供Sqoop工具
+
+## Requirements
+
+本项目在以下环境中测试通过：
+
+* Ubuntu Linux 18.04
+* Docker 18.03.1-ce
+* Docker Compose 1.17.1
+
+## Tutorials
 
 ### 1. 构建/拉取镜像
 
-可通过`sh docker_build.sh`命令一次性构建所有要用到的镜像，也可以通过`sh docker_pull`从[Docker Hub](https://hub.docker.com/u/leesper/)拉取已构建好的镜像。
+所有的镜像都已构建完毕并上传到DockerHub，可以通过[这里](https://hub.docker.com/u/leesper/)拉取所需镜像，也可以通过`sh docker_pull.sh`一次性拉取所有构建好的镜像。
 
 ### 2. 创建大数据集群网络
 
@@ -187,6 +210,27 @@ docker-compose -f docker-compose-sqoop.yml up -d
 ```
 sqoop list-databases --connect jdbc:mysql://mysql:3306/ --username root -Proot
 ```
+
+## Support
+
+Tell people where to get help, such as issue tracker, chat room, an email, etc.
+
+## Development
+For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Such as how to setup an environment. For example:
+
+```
+$ virtualenv foobar
+$ . foobar/bin/activate
+$ pip install -e .
+```
+
+## Authors and acknowledgment
+
+Show your appreciation to those who have contributed to the project.
+
+## Changelog
+
+A record of all notable changes made to a project.
 
 
 注意docker-compose-hadoop.yml、docker-compose-hive.yml、docker-compose-spark.yml和docker-compose-hbase.yml不要一起启动，后面模板中是包含了前一个的所有配置
