@@ -1,4 +1,4 @@
-# 实战项目1：利用Docker搭建MySQL Server容器
+# 实战任务1：利用Docker搭建MySQL Server容器
 
 完成了对ZooKeeper的搭建后，下面我们来构建一个独立运行MySQL Server的容器，后面将要使用的Hive会使用这里的MySQL作为metastore数据库存储元数据，但如果仅仅想构建基础Hadoop集群，可省略此步。
 
