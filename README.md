@@ -70,30 +70,7 @@ docker build -t=xxx/ubuntu-java .
 
 ### 4. 启动MySQL容器
 
-若仅仅想使用步骤5中的基础Hadoop集群，可省略此步。
-
-```
-$ docker-compose -f docker-compose-mysql.yml up -d
-```
-
-修改密码和配置远程访问mysql：
-
-```
-docker exec -it mysql /bin/bash
-mysql -u root -proot
-# 进入名为mysql的数据库
-mysql> use mysql;
-# 授权远程访问
-mysql> GRANT ALL PRIVILEGES ON *.* TO root@"%" IDENTIFIED BY "root" WITH GRANT OPTION;
-mysql> FLUSH PRIVILEGES;
-
-# 配置字符集，解决后面Hive建表报错 #TODO
-# FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. MetaException(message:For direct MetaStore DB connections, we don't support retries at the client level.)
-
-mysql> ALTER DATABASE hive character set latin1;
-```
-
-MySQL容器配置完成
+[实战项目1：利用Docker搭建MySQL Server容器](./tutorials-0/mysql.md)
 
 ### 5. 启动基础Hadoop集群
 
