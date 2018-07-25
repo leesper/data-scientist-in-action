@@ -66,7 +66,7 @@ docker build -t=xxx/ubuntu-java .
 
 ### 3. 搭建ZooKeeper集群
 
-请阅读文档：[实战项目0：利用Docker搭建ZooKeeper集群](./tutorials-0/zookeeper.md)
+[实战项目0：利用Docker搭建ZooKeeper集群](./tutorials-0/zookeeper.md)
 
 ### 4. 启动MySQL容器
 

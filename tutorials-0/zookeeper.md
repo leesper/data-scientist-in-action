@@ -108,8 +108,10 @@ services:
     container_name: zk1  # 指定容器名后docker会自动将这个名字与其IP地址建立域名解析关系
     network_mode: zoo-net  # ZK集群运行于我们事先创建好的zoo-net容器网络中
     volumes:  
-      - ./zookeeper/zk1:/opt/data  # 将宿主机的zookeeper/zk1挂载到容器的/opt/data
-      - ./zookeeper/conf:/usr/local/zookeeper/conf  # 将宿主机的zookeeper/conf挂载到容器的/usr/local/zookeeper/conf
+      # 将宿主机的zookeeper/zk1挂载到容器的/opt/data
+      - ./zookeeper/zk1:/opt/data  
+      # 将宿主机的zookeeper/conf挂载到容器的/usr/local/zookeeper/conf
+      - ./zookeeper/conf:/usr/local/zookeeper/conf  
     ports:  # 将容器的2181端口映射到宿主机2181端口
       - "2181:2181"
     expose:  # 容器要监听的端口
