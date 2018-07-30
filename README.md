@@ -74,6 +74,8 @@ docker build -t=xxx/ubuntu-java .
 
 ### 5. 启动基础Hadoop集群
 
+[实战任务2：利用Docker搭建基础Hadoop集群](./tutorials-0/hadoop-base.md)
+
 **TODO** 增加对组件的描述
 
 ```
