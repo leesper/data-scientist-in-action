@@ -73,12 +73,21 @@ ENV PATH=$HADOOP_HOME/bin/:$PATH
 2. dfs.datanode.data.dir：DataNode在本地文件系统中存放数据块block的路径
 3. dfs.namenode.checkpoint.dir：SecondaryNameNode在本地文件系统中存放临时镜像的路径
 4. dfs.namenode.secondary.http-address：SecondaryNameNode的HTTP服务器地址和端口
-5. dfs.replication：
-6. dfs.webhdfs.enabled
-7. dfs.permissions
-8. dfs.datanode.max.transfer.threads
+5. dfs.replication：副本因子，每个数据块存多少个副本
+6. dfs.webhdfs.enabled：是否启动NameNode和DataNode中的WebHDFS(REST API)
+7. dfs.permissions.enabled：是否开启HDFS的文件权限检查
+8. dfs.datanode.max.transfer.threads：DataNode传输数据的最大线程数
 
 ### 3. 配置文件mapred-site.xml
+
+1. mapreduce.framework.name：执行MapReduce作业的运行时框架
+2. mapreduce.jobhistory.address：MapReduce作业历史服务器主机名和端口
+3. mapreduce.jobhistory.webapp.address：MapReduce作业历史服务器WebUI主机名和端口
+4. mapreduce.jobhistory.done-dir：MR JobHistory Server管理的日志的存放位置
+5. mapreduce.jobhistory.intermediate-done-dir：MapReduce作业产生的日志存放位置
+6. mapreduce.map.log.level：Map任务日志级别
+7. mapreduce.reduce.log.level：Reduce任务日志级别
+
 ### 4. 配置文件yarn-site.xml
 
 ## 编排并启动Hadoop集群
