@@ -90,6 +90,28 @@ ENV PATH=$HADOOP_HOME/bin/:$PATH
 
 ### 4. 配置文件yarn-site.xml
 
+1. yarn.nodemanager.aux-services：NodeManager上运行的附属服务，配置成mapreduce_shuffle才能运行MapReduce程序
+2. yarn.nodemanager.remote-app-log-dir：应用程序日志聚集的HDFS目录
+3. yarn.nodemanager.resource.memory-mb：表示该节点上YARN可使用的物理内存总量
+4. yarn.nodemanager.resource.cpu-vcores：表示该节点上YARN可使用的虚拟CPU个数
+5. yarn.nodemanager.pmem-check-enabled：是否启动一个线程检查每个任务正在使用的物理内存量
+6. yarn.nodemanager.vmem-check-enabled：是否启动一个线程检查每个任务正在使用的虚拟内存量
+7. yarn.resourcemanager.hostname：ResourceManager主机名
+8. yarn.resourcemanager.address：ResourceManager对客户端暴露的地址，客户端通过该地址向RM提交应用程序，杀死应用程序等
+9. yarn.resourcemanager.scheduler.address：ResourceManager对ApplicationMaster暴露的访问地址。ApplicationMaster通过该地址向RM申请资源、释放资源等
+10. yarn.resourcemanager.resource-tracker.address：ResourceManager对NodeManager暴露的地址.。NodeManager通过该地址向RM汇报心跳，领取任务等
+11. yarn.resourcemanager.admin.address：ResourceManager对管理员暴露的访问地址。管理员通过该地址向RM发送管理命令等
+12. yarn.resourcemanager.webapp.address：ResourceManager对外Web UI地址，用户可通过该地址在浏览器中查看集群各类信息
+13. yarn.scheduler.maximum-allocation-mb：单个容器可申请的最大内存资源量
+14. yarn.scheduler.maximum-allocation-vcores：单个可申请的最大虚拟CPU个数
+15. yarn.log-aggregation-enable：是否启用日志聚集功能查看container日志
+16. yarn.log.server.url：Log server地址
+17. yarn.timeline-service.enabled：是否开启timeline service服务
+18. yarn.system-metrics-publisher.enabled：该设置控制RM是否发布YARN系统度量值到timeline server
+19. yarn.timeline-service.generic-application-history.enabled：标示client是否通过timeline history-service查询通用的application数据
+20. yarn.timeline-service.hostname：Timeline service web应用的主机名
+21. yarn.app.mapreduce.am.staging-dir：作业启动后，Hadoop会将作业日志放在该目录下
+
 ## 编排并启动Hadoop集群
 
 ## 参考文献
