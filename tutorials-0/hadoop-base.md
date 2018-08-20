@@ -114,4 +114,56 @@ ENV PATH=$HADOOP_HOME/bin/:$PATH
 
 ## 编排并启动Hadoop集群
 
+写好各种配置信息后，我们就可以正式开始编排并启动我们的Hadoop集群了。该集群由4个节点组成：一个NameNode节点，一个ResourceManager节点和两个DataNode节点，分别命名为：
+
+1. master.namenode
+2. master.resourcemanager
+3. worker.datanode1
+4. worker.datanode2
+
+根据[Hadoop官方文档](http://hadoop.apache.org/docs/r2.8.4/hadoop-project-dist/hadoop-common/ClusterSetup.html)，一个典型的集群包含两个master：NameNode和ResourceManager，而DataNode一般和NodeManager部署在一台机器上。NameNode和DataNode作为HDFS的守护进程负责管理数据；而ResourceManager和NodeManager作为守护进程负责YARN的资源调度，将NodeManager和DataNode放在一起有助于实现“计算跟着数据走”，提高集群的运算效率。
+
+docker编排文件如下：
+```docker
+version: "3"
+services: 
+  master.namenode:
+    image: leesper/hadoop-base
+    container_name: master.namenode
+    volumes:
+      - ./hadoop-base/conf:/usr/local/hadoop/etc/hadoop
+    network_mode: zoo-net
+    ports:
+      - "50070:50070"
+  master.resourcemanager:
+    image: leesper/hadoop-base
+    container_name: master.resourcemanager
+    volumes: 
+      - ./hadoop-base/conf:/usr/local/hadoop/etc/hadoop
+    network_mode: zoo-net
+    ports:
+      - "8088:8088"
+  worker.datanode1:
+    image: leesper/hadoop-base
+    container_name: worker.datanode1
+    depends_on:
+      - master.namenode
+    volumes:
+      - ./hadoop-base/conf:/usr/local/hadoop/etc/hadoop
+    network_mode: zoo-net
+  worker.datanode2:
+    image: leesper/hadoop-base
+    container_name: worker.datanode2
+    depends_on:
+      - master.namenode
+    volumes:
+      - ./hadoop-base/conf:/usr/local/hadoop/etc/hadoop
+    network_mode: zoo-net
+
+```
+
+这里有几个值得注意的地方。首先，通过设置container_name指定容器名，Docker能够自动建立IP到container_name的解析，集群中的各个节点就能通过它互相访问，所以编排文件中写的与配置文件是保持一致的；其次，volumes指定了将宿主机中的某个文件夹挂载到虚拟机的某个文件夹，这相当于建立了映射。所以这里只要将当前目录下的配置文件映射到虚拟机中对应的文件夹，就相当于建立了配置文件，就不用在构建镜像时进行配置了，当然，你也可以通过写shell脚本的方式进行配置；第三，network_mode指定了我们之前创建的Docker网络：zoo-net，这样一来所有的容器就处于同一个网段中；最后，depends_on指定了容器之间的依赖关系，编排文件启动Docker集群时会将被依赖的容器优先启动起来。
+
 ## 参考文献
+
+[大数据技术原理与应用：概念、存储、处理、分析与应用（第2版）](https://www.amazon.cn/dp/B06X1DYSBS/ref=sr_1_1?ie=UTF8&qid=1534749671&sr=8-1&keywords=%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%EF%BC%9A%E6%A6%82%E5%BF%B5%E3%80%81%E5%AD%98%E5%82%A8%E3%80%81%E5%A4%84%E7%90%86%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8%EF%BC%88%E7%AC%AC2%E7%89%88%EF%BC%89)
