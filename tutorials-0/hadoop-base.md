@@ -1,4 +1,4 @@
-# 实战任务2：利用Docker搭建ZooKeeper集群
+# 实战任务2：利用Docker搭建Hadoop集群
 
 完成了ZK和MySQL等容器的构建和编排之后，下面我们可以正式开始构建基础的Hadoop集群了。本次实战任务只编排和启动基础的Hadoop集群，也就是说，只包含HDFS，YARN和MapReduce这些核心组件。本关任务也是后面实战任务的基础，因为后面我们将以这里构建好的镜像为基础，逐步的添加一些其他的大数据组件：
 
@@ -121,6 +121,8 @@ ENV PATH=$HADOOP_HOME/bin/:$PATH
 3. worker.datanode1
 4. worker.datanode2
 
+### 1. 编写Docker编排文件
+
 根据[Hadoop官方文档](http://hadoop.apache.org/docs/r2.8.4/hadoop-project-dist/hadoop-common/ClusterSetup.html)，一个典型的集群包含两个master：NameNode和ResourceManager，而DataNode一般和NodeManager部署在一台机器上。NameNode和DataNode作为HDFS的守护进程负责管理数据；而ResourceManager和NodeManager作为守护进程负责YARN的资源调度，将NodeManager和DataNode放在一起有助于实现“计算跟着数据走”，提高集群的运算效率。
 
 docker编排文件如下：
@@ -163,6 +165,38 @@ services:
 ```
 
 这里有几个值得注意的地方。首先，通过设置container_name指定容器名，Docker能够自动建立IP到container_name的解析，集群中的各个节点就能通过它互相访问，所以编排文件中写的与配置文件是保持一致的；其次，volumes指定了将宿主机中的某个文件夹挂载到虚拟机的某个文件夹，这相当于建立了映射。所以这里只要将当前目录下的配置文件映射到虚拟机中对应的文件夹，就相当于建立了配置文件，就不用在构建镜像时进行配置了，当然，你也可以通过写shell脚本的方式进行配置；第三，network_mode指定了我们之前创建的Docker网络：zoo-net，这样一来所有的容器就处于同一个网段中；最后，depends_on指定了容器之间的依赖关系，编排文件启动Docker集群时会将被依赖的容器优先启动起来。
+
+### 2. 启动基础Hadoop集群
+
+首先，我们在命令行启动基础Hadoop集群，很简单，只需要一行命令即可：
+
+```
+$ docker-compose -f docker-compose-hadoop.yml up -d
+```
+
+启动集群之后，我们需要进入到已启动的容器中做一些手工操作，第一个要做的就是格式化NameNode节点：
+
+```
+docker exec -it master.namenode /bin/bash
+hdfs namenode -format
+```
+
+然后在NameNode上通过Hadoop自带的脚本启动HDFS：
+
+```
+cd /usr/local/hadoop/sbin
+./start-dfs.sh
+```
+
+最后在ResourceManager上启动YARN和MapReduce JobHistory Server：
+
+```
+cd /usr/local/hadoop/sbin
+./start-yarn.sh
+./mr-jobhistory-daemon.sh --config $HADOOP_CONF_DIR start historyserver
+```
+
+可以通过访问http://localhost:50070，看看集群是否启动成功，也可以通过jps命令查看进程。
 
 ## 参考文献
 
